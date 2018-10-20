@@ -1,14 +1,5 @@
 <template>
   <div>
-    <el-input placeholder="请输入内容" v-model="cont" class="input-with-select">
-      <el-select v-model="select" slot="prepend" placeholder="请选择">
-        <el-option label="内容" value="1"></el-option>
-        <el-option label="学号" value="2"></el-option>
-        <el-option label="姓名" value="3"></el-option>
-        <el-option label="学院" value="4"></el-option>
-      </el-select>
-      <el-button slot="append" icon="el-icon-search"></el-button>
-    </el-input>
     <el-autocomplete
       class="inline-input"
       v-model="state1"
@@ -16,26 +7,29 @@
       placeholder="请输入内容"
       @select="handleSelect"
     >
-      <el-select v-model="select" slot="prepend" placeholder="请选择">
+      <el-select class="selectType" v-model="select" slot="prepend" placeholder="请选择">
         <el-option label="内容" value="1"></el-option>
         <el-option label="学号" value="2"></el-option>
         <el-option label="姓名" value="3"></el-option>
         <el-option label="学院" value="4"></el-option>
       </el-select>
-      <el-button slot="append" icon="el-icon-search"></el-button>
+      <el-button class="findButton" slot="append" icon="el-icon-search"></el-button>
     </el-autocomplete>
+
     <transition-group name="list-complete" tag="p">
       <el-card
         v-for="item in items"
         v-bind:key="item"
-        class="list-complete-item"
+        class="box-card"
       >
         <div slot="header" class="clearfix">
-          <span>{{ item }}</span>
-          <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+          <span class="name">王花花</span>
+          <span class="school">信息与通信工程学院</span>
+          <span class="class">电子信息类</span>
+          <el-button style="float: right; padding: 3px 0" type="text">选择</el-button>
         </div>
-        <div v-for="o in 4" :key="o" class="text item">
-          {{'列表内容 ' + o }}
+        <div  class="text-item">
+          我是许愿内容 我要脱单
         </div>
       </el-card>
     </transition-group>
@@ -48,7 +42,7 @@ export default {
   data(){
     return{
       cont: '',
-      select: 0,
+      select: '',
       items: [1,2,3,4,5,6,7,8,9],
     }
   },
@@ -127,45 +121,54 @@ export default {
 </script>
 
 <style>
-  .list-complete-item {
-    transition: all 1s;
-    display: inline-block;
-    margin-right: 10px;
+  .inline-input {
+    width: 100%;
   }
-  .list-complete-enter, .list-complete-leave-to
-  /* .list-complete-leave-active for below version 2.1.8 */ {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  .list-complete-leave-active {
-    position: absolute;
+  .selectType {
+    width: 90px;
   }
 
-  .text {
-    font-size: 14px;
+  .inline-input > div > .el-input-group__append {
+    padding: 10px;
+    width: 15px;
+    /* background-color: #f596aa */
   }
 
-  .item {
-    margin-bottom: 18px;
+  .inline-input > div > .el-input-group__prepend {
+    border-radius:20px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    
   }
-
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-  .clearfix:after {
-    clear: both
+  .inline-input > div > .el-input-group__append{
+    border-radius:20px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-right: 0;
   }
 
   .box-card {
     width: 100%;
   }
 
+  .box-card > .el-card__header {
+    padding: 10px 20px;
+  }
+  
+
+  .text-item {
+    font-size: 12px;
+  }
   .el-select .el-input {
     width: 130px;
   }
-  .input-with-select .el-input-group__prepend {
+  /* .input-with-select .el-input-group__prepend {
     background-color: #fff;
+  } */
+  .clearfix > .name {
+    font-size: 16px;
+  }
+  .clearfix > .school,.class {
+    color: #828282;
   }
 </style>

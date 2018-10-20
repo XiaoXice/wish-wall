@@ -90,6 +90,9 @@ export default {
   flex-direction: column;
   align-items: center;
 }
+.checkin-main > .el-input {
+  margin-bottom: 10px;
+}
 .rad-border > * {
   /* color: red; */
   border: 1px solid #ce2121;

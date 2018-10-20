@@ -1,7 +1,6 @@
 <template>
   <el-container id="app">
     <el-header style="margin-left:-8px;margin-top:-8px; width:100vw;">
-      <i class="el-icon-back"></i>
       <el-row type="flex" class="header" justify="space-around">
         <div class="header-text header-col">{{$store.state.title}}</div>
       </el-row>
@@ -29,7 +28,7 @@ body{
   font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
 .el-header {
-  background-color: #2d5e7c;
+  background-color: #E16B8C;
   box-shadow: 0 2px 5px #888888;
 }
 .header {
