@@ -16,7 +16,12 @@ export default new vuex.Store({
         class: '', //学院
         phone: '',
         score: 0,
-        DocTitle: "北邮心愿墙"
+        DocTitle: "北邮心愿墙",
+        QQ1410657076: '加我的时候备注：从心愿墙来',
+        obj: null,
+        dataBase: null,
+        NumberList: null,
+        idx: null
     },
     mutations: { // 这里的方法必须同步！
         switch_dialog(state) { //这里的state对应着上面这个state

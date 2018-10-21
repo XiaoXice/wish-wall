@@ -5,36 +5,75 @@
         <div class="header-text header-col">{{$store.state.title}}</div>
       </el-row>
     </el-header>
-    <el-button type="primary" icon="el-icon-back" class="iconBack"></el-button>
-    <transition-group name="list-complete" tag="p">
-      <el-card
-        v-for="item in 10"
-        v-bind:key="item"
-        class="box-card"
-      >
-        <div slot="header" class="clearfix">
-          <span class="name">王花花</span>
-          <span class="school">信息与通信工程学院</span>
-          <span class="class">电子信息类</span>
-          <span class="number">2017211110</span>
-          <el-button style="float: right; padding: 3px 0" type="text">选择</el-button>
-        </div>
-        <div  class="text-item">
-          我是许愿内容 我要脱单
-        </div>
-      </el-card>
-    </transition-group>
+    <el-button @click="back" type="primary" icon="el-icon-back" class="iconBack"></el-button>
+    <el-card
+    v-for="(item,index) in items"
+    v-if="items.length"
+    v-bind:key="item<0?index:item"
+    class="box-card"
+    >
+    <div slot="header" class="clearfix">
+      <span class="name">{{getMsg(item).name}}</span>
+      <el-button @click="chooseIt(getMsg(item).number)" style="float: right; padding: 3px 0" type="text">选择</el-button>
+      <br>
+      <span class="school">  {{getMsg(item).grade}}</span>
+      <span class="class"> | {{getMsg(item).class}}</span>
+      <span class="number"> | {{getMsg(item).number}}</span>
+    </div>
+    <div  class="text-item">
+      {{getMsg(item).text}}
+    </div>
+    <div v-if="getMsg(item).other" class="text-item-other">
+      {{getMsg(item).other}}
+    </div>
+    </el-card>
+    <div class="error" v-if="!items.length">抱歉,什么都没找到呢..</div>
   </div>
 </template>
 
 <script>
 export default {
   name: "find",
-
+  data(){
+    return {
+      items:[],
+      loading: true
+    }
+  },
+  mounted() {
+    let out = this.$store.state.idx.search(this.$route.params.kw);
+    if(out.length == 0){
+      if(this.$store.state.dataBase[this.$route.params.kw])
+      out = [{ref:this.$route.params.kw}];
+    }
+    for (const item of out) {
+      this.items.push(item.ref)
+    }
+    this.loading = false;
+  },
+  methods:{
+    getMsg(number){
+      if(number == -1)
+      return {"name": ".....", "grade": ".....", "class": ".....", "number": ".....", "text": ".....", "other": "....." }
+      else
+      return this.$store.state.dataBase[number];
+    },
+    back(){
+      this.$router.back();
+    },
+    chooseIt(number){
+      this.$emit('throseIt',number)
+    }
+  }
 }
 </script>
 
 <style>
+  .error{
+    color: #828282;
+    text-align: center;
+    font-size: 18px;
+  }
   .iconBack {
     position: fixed;
     z-index:999;

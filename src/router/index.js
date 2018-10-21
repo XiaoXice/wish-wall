@@ -7,7 +7,7 @@ const find = () =>
     import ('@/components/find')
 const statu = () =>
     import ('@/components/statu')
-    //import store from "@/store"
+import store from "../store"
 
 Vue.use(Router)
 
@@ -19,14 +19,35 @@ export default new Router({
     }, {
         path: '/survey',
         name: 'survey',
-        component: survey
+        component: survey,
+        beforeEnter(to, from, next) {
+            if (store.state.power == 1) {
+                next();
+            } else {
+                next('./')
+            }
+        }
     }, {
         path: '/find',
         name: 'find',
-        component: find
+        component: find,
+        beforeEnter(to, from, next) {
+            if (store.state.power == 1) {
+                next();
+            } else {
+                next('./')
+            }
+        }
     }, {
         path: '/statu',
         name: 'statu',
-        component: statu
+        component: statu,
+        beforeEnter(to, from, next) {
+            if (store.state.power == 2) {
+                next();
+            } else {
+                next('./')
+            }
+        }
     }]
 })

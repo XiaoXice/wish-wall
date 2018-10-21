@@ -10,7 +10,7 @@ import router from './router'
 import VueWechatTitle from 'vue-wechat-title';
 
 Vue.use(VueWechatTitle)
-import { Notification, Button, Row, Container, Header, Main, Footer, Input, Loading, Select, Option, Autocomplete, Card } from 'element-ui';
+import { MessageBox, Notification, Button, Row, Container, Header, Main, Footer, Input, Loading, Select, Option, Autocomplete, Card } from 'element-ui';
 Vue.use(Button);
 Vue.use(Row)
 Vue.use(Container);
@@ -25,10 +25,10 @@ Vue.use(Autocomplete);
 Vue.use(Card);
 
 Vue.prototype.$loading = Loading.service;
-// Vue.prototype.$msgbox = MessageBox;
-// Vue.prototype.$alert = MessageBox.alert;
-// Vue.prototype.$confirm = MessageBox.confirm;
-// Vue.prototype.$prompt = MessageBox.prompt;
+Vue.prototype.$msgbox = MessageBox;
+Vue.prototype.$alert = MessageBox.alert;
+Vue.prototype.$confirm = MessageBox.confirm;
+Vue.prototype.$prompt = MessageBox.prompt;
 Vue.prototype.$notify = Notification;
 // Vue.prototype.$message = Message;
 
