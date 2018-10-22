@@ -7,19 +7,19 @@
     class="box-card"
     >
     <div slot="header" class="clearfix">
-      <span class="name">{{getMsg(item).name}}</span>
-      <span class="phone"> | 电话:  {{getMsg(item).phone}}</span>
+      <span class="name">{{item.name}}</span>
+      <span class="phone"> | 电话:  {{item.phone}}</span>
       <br>
-      <span class="school">  {{getMsg(item).grade}}</span>
-      <span class="class"> | {{getMsg(item).class}}</span>
-      <span class="number"> | {{getMsg(item).number}}</span>
+      <span class="school">  {{item.grade}}</span>
+      <span class="class"> | {{item.class}}</span>
+      <span class="number"> | {{item.number}}</span>
       
     </div>
     <div  class="text-item">
-      {{getMsg(item).text}}
+      {{item.text}}
     </div>
-    <div v-if="getMsg(item).other" class="text-item-other">
-      {{getMsg(item).other}}
+    <div v-if="item.other" class="text-item-other">
+      {{item.other}}
     </div>
     </el-card>
   </div>
@@ -34,7 +34,7 @@ export default {
   name: "statu",
   data(){
     return {
-      items: this.$store.state.obj
+      items: []
     }
   },
   mounted() {
@@ -46,12 +46,16 @@ export default {
           this.$store.state.dataBase = JSON.parse(res.bodyText);
           for (const i of this.$store.state.obj) {
             this.$store.state.dataBase[i].phone = out[i];
+            this.items.push(this.$store.state.dataBase[i]);
           }
         })
       }else{
-        for (const i of this.$store.state.obj) {
-          this.$store.state.dataBase[i].phone = out[i];
-        }
+        setTimeout(()=>{
+          for (const i of this.$store.state.obj) {
+            this.$store.state.dataBase[i].phone = out[i];
+            this.items.push(this.$store.state.dataBase[i]);
+          }
+        },500)
       }
     })
   },
@@ -60,7 +64,7 @@ export default {
       if(number == -1)
       return {"name": ".....", "grade": ".....", "class": ".....", "number": ".....", "text": ".....", "other": "....." }
       else
-      return this.$store.state.dataBase[number];
+      return item;
     },
   }
 }

@@ -25,7 +25,7 @@ export default {
     throseIt(number){
       if(this.chooselist.indexOf(number) == -1)
         this.chooselist.push(number);
-      console.log(number)
+      // console.log(number)
     },
     deletIt(number){
       if(this.chooselist.indexOf(number) != -1)
@@ -62,7 +62,7 @@ export default {
       let tmp = [];
       for (const number of this.chooselist) {
         tmp.push(
-          h('el-card', { class: "box-card" ,style: "width:98%;transition: all 1s;" }, [
+          h('el-card', { class: "box-card inOutLine" ,style: "width:98%;transition: all 1s;" }, [
             h('div', { slot: "header", class: "name" }, [
               h('span', { class: "name" }, this.getMsg(number).name),
               h('el-button', {style: "float: right;",class:"el-button el-button--danger is-circle el-icon-delete deletbtn"},number),
@@ -82,7 +82,7 @@ export default {
              var that = this;
              btn.onclick = function(res){
                this.parentNode.parentNode.parentElement.style = "display:none;"
-               console.log(this.childNodes[2].textContent)
+              //  console.log(this.childNodes[2].textContent)
                that.deletIt(this.childNodes[2].textContent);
              }
            } 
@@ -150,6 +150,7 @@ body {
   background-color: #fff;
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
     "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  overflow-x:hidden;
 }
 .el-header {
   background-color: #e16b8c;
@@ -198,9 +199,17 @@ body {
   display: none;
 }
 
+.inOutLine{
+  width: 90%;
+}
+
 .outList {
-  max-height: 80vh;
+  height: 80vh;
+  max-height: 300px;
+  width: 80vw;
+  max-width: 500px;
   overflow:auto;
+  overflow-x:hidden;
 }
 .school,.class,.number {
     color: #828282;

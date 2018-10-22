@@ -16,7 +16,7 @@
       <br>
       <span class="school">  {{getMsg(item).grade}}</span>
       <span class="class"> | {{getMsg(item).class}}</span>
-      <span class="number"> | {{getMsg(item).number}}</span>
+      <!-- <span class="number"> | {{getMsg(item).number}}</span> -->
     </div>
     <div  class="text-item">
       {{getMsg(item).text}}
@@ -50,29 +50,37 @@ export default {
           this.add(a[doc])
         }
       })
-      console.log(idx.search("dalao一起学习"));
-      console.log(idx);
+      // console.log(idx.search("dalao一起学习"));
+      // console.log(idx);
       this.$store.state.idx = idx;
       this.items = []
-      for(let i = 0;i<4;i++) this.items.push(Math.floor(Math.random()*10000)%125);
-      this.loading = false;
-      let fill = ()=>{
-        setTimeout(() => {
-          this.items.splice(0,1);
-          setTimeout(() => {
-            this.items.splice(4,0,Math.floor(Math.random()*10000)%125);
-          }, 50);
-          fill();
-        }, 5000);
+      // for(let i = 0;i<4;i++) this.items.push(Math.floor(Math.random()*10000)%125);
+      if (!Array.prototype.shuffle) {
+        Array.prototype.shuffle = function() {
+            for(var j, x, i = this.length; i; j = parseInt(Math.random() * i), x = this[--i], this[i] = this[j], this[j] = x);
+            return this;
+        };
       }
-      fill();
+      this.items = this.$store.state.NumberList;
+      this.items.shuffle();
+      this.loading = false;
+      // let fill = ()=>{
+      //   setTimeout(() => {
+      //     this.items.splice(0,1);
+      //     setTimeout(() => {
+      //       this.items.splice(4,0,Math.floor(Math.random()*10000)%125);
+      //     }, 50);
+      //     fill();
+      //   }, 5000);
+      // }
+      // fill();
     })
     return{
       loading: true,
       cont: '',
       select: '',
       input: '',
-      items: [-1,-1,-1,-1],
+      items: [],
     }
   },
   methods: {
@@ -89,7 +97,7 @@ export default {
       if(number == -1)
       return {"name": ".....", "grade": ".....", "class": ".....", "number": ".....", "text": ".....", "other": "....." }
       else
-      return this.$store.state.dataBase[this.$store.state.NumberList[number]];
+      return this.$store.state.dataBase[number];
     },
     chooseIt(number){
       this.$emit('throseIt',number)
