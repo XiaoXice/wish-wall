@@ -13,19 +13,16 @@
     class="box-card"
     >
     <div slot="header" class="clearfix">
-      <span class="name">{{getMsg(item).name}}</span>
-      <el-button @click="chooseIt(getMsg(item).number)" style="float: right; padding: 3px 0" type="text">选择</el-button>
+      <span class="name">第 {{getMsg(item).index}} 号</span>
       <br>
-      <span class="school">  {{getMsg(item).grade}}</span>
-      <span class="class"> | {{getMsg(item).class}}</span>
-      <span class="number"> | {{getMsg(item).number}}</span>
+      <span class="number"> | {{getMsg(item).connect}}</span>
     </div>
     <div  class="text-item">
-      {{getMsg(item).text}}
+      {{getMsg(item).content}}
     </div>
-    <div v-if="getMsg(item).other" class="text-item-other">
+    <!-- <div v-if="getMsg(item).other" class="text-item-other">
       {{getMsg(item).other}}
-    </div>
+    </div> -->
     </el-card>
     <div class="error" v-if="!items.length">抱歉,什么都没找到呢..</div>
   </div>
@@ -47,7 +44,7 @@ export default {
       out = [{ref:this.$route.params.kw}];
     }
     for (const item of out) {
-      this.items.push(item.ref)
+      this.items.push(item.ref-1)
     }
     this.loading = false;
   },
@@ -60,9 +57,6 @@ export default {
     },
     back(){
       this.$router.back();
-    },
-    chooseIt(number){
-      this.$emit('throseIt',number)
     }
   }
 }
