@@ -213,6 +213,6 @@ body {
 }
 .school,.class,.number {
     color: #828282;
-    font-size: 7px;
+    font-size: 9px;
   }
 </style>

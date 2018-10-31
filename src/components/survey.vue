@@ -3,7 +3,11 @@
   <el-input class="inline-input" placeholder="可搜索 学号,姓名,内容" v-model="input">
     <el-button @click="find" slot="append" icon="el-icon-search"></el-button>
   </el-input>
-
+  <el-header v-if="theTop > 500" style="position: fixed;top:0px;left:0px; width:100vw;">
+    <el-row type="flex" class="header" justify="space-around">
+      <div @click="goTop" class="header-text header-col">{{title}}</div>
+    </el-row>
+  </el-header>
   <transition-group name="list-complete" tag="div" v-loading="loading">
     <el-card
     v-for="(item,index) in items"
@@ -81,7 +85,12 @@ export default {
       select: '',
       input: '',
       items: [],
+      theTop: 0,
+      title: "点击回到开始",
+      changeTitle: false,
     }
+  },
+  components:{
   },
   methods: {
     find(){
@@ -101,9 +110,39 @@ export default {
     },
     chooseIt(number){
       this.$emit('throseIt',number)
+    },
+    goTop(){
+      var scrollToptimer = setInterval(function () {
+          // console.log("定时循环回到顶部")
+          var top = document.body.scrollTop || document.documentElement.scrollTop;
+          var speed = top / 4;
+          console.log(top)
+          if (document.body.scrollTop!=0) {
+              document.body.scrollTop -= speed;
+          }else {
+              document.documentElement.scrollTop -= speed;
+          }
+          if (top == 0) {
+              clearInterval(scrollToptimer);
+          }
+      }, 30);
+      // console.log(scrollToptimer)
+    },
+    handleScroll(){
+      let top = document.body.scrollTop || document.documentElement.scrollTop;
+      if( top%100 == 0){
+        this.theTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if(!this.changeTitle &&this.theTop > 500 && this.title=="点击回到开始"){
+          this.changeTitle = true;
+          setTimeout(() => {
+            this.title = this.$store.state.title;
+          }, 500);
+        }
+      }
     }
   },
   mounted() {
+    window.addEventListener('scroll', this.handleScroll)
   }
 }
 </script>
@@ -154,7 +193,8 @@ export default {
   font-size: 16px;
   }
   .clearfix > .school,.class,.number {
-  color: #828282;
+    color: #828282;
+    font-size: 9px;
   }
   .text-item-other{
     font-size: 10px;

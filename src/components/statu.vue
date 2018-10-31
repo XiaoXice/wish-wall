@@ -40,7 +40,7 @@ export default {
   mounted() {
     if(this.$store.state.obj)
     getPhone(this,this.$store.state.obj,out=>{
-      console.log(out);
+      // console.log(out);
       if(!this.$store.state.dataBase){
         this.$http.get('/static/2018NoCall.1.json').then(res=>{
           this.$store.state.dataBase = JSON.parse(res.bodyText);
