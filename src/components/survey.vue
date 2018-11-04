@@ -15,19 +15,16 @@
     class="box-card list-complete-item"
     >
     <div slot="header" class="clearfix">
-      <span class="name">{{getMsg(item).name}}</span>
-      <el-button @click="chooseIt(getMsg(item).number)" style="float: right; padding: 3px 0" type="text">选择</el-button>
+      <span class="name">第 {{getMsg(item).index}} 号</span>
+      <el-button @click="chooseIt(getMsg(item).index-1)" style="float: right; padding: 3px 0" type="text">选择</el-button>
       <br>
-      <span class="school">  {{getMsg(item).grade}}</span>
-      <span class="class"> | {{getMsg(item).class}}</span>
-      <!-- <span class="number"> | {{getMsg(item).number}}</span> -->
     </div>
     <div  class="text-item">
-      {{getMsg(item).text}}
+      {{getMsg(item).content}}
     </div>
-    <div v-if="getMsg(item).other" class="text-item-other">
+    <!-- <div v-if="getMsg(item).other" class="text-item-other">
       {{getMsg(item).other}}
-    </div>
+    </div> -->
     </el-card>
   </transition-group>
   </div>
@@ -45,11 +42,8 @@ export default {
       var b = this.$store.state.NumberList;
       var idx = lunr(function () {
         this.use(lunr.cn);
-        this.field('name', { BOOST: 10 })
-        this.field('number',{ BOOST: 20 })
-        this.field('text')
-        this.field('other')
-        this.ref('number')
+        this.field('content', { BOOST: 10 })
+        this.ref('index')
         for (const doc of b) {
           this.add(a[doc])
         }
@@ -104,7 +98,7 @@ export default {
     },
     getMsg(number){
       if(number == -1)
-      return {"name": ".....", "grade": ".....", "class": ".....", "number": ".....", "text": ".....", "other": "....." }
+      return {"index": ".....", "content": ".....", "connect": "....."}
       else
       return this.$store.state.dataBase[number];
     },

@@ -7,19 +7,13 @@
     class="box-card"
     >
     <div slot="header" class="clearfix">
-      <span class="name">{{item.name}}</span>
-      <span class="phone"> | 电话:  {{item.phone}}</span>
+      <span class="name">第 {{item.index}} 号</span>
+      <span class="phone"> | 联系方式: {{item.phone}}</span> 
       <br>
-      <span class="school">  {{item.grade}}</span>
-      <span class="class"> | {{item.class}}</span>
-      <span class="number"> | {{item.number}}</span>
-      
+      <!-- <span class="number"> | {{getMsg(item).connect}}</span> -->
     </div>
     <div  class="text-item">
-      {{item.text}}
-    </div>
-    <div v-if="item.other" class="text-item-other">
-      {{item.other}}
+      {{item.content}}
     </div>
     </el-card>
   </div>

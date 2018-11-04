@@ -64,15 +64,15 @@ export default {
         tmp.push(
           h('el-card', { class: "box-card inOutLine" ,style: "width:98%;transition: all 1s;" }, [
             h('div', { slot: "header", class: "name" }, [
-              h('span', { class: "name" }, this.getMsg(number).name),
+              h('span', { class: "name" }, "第 "+this.getMsg(number).index + " 号"),
               h('el-button', {style: "float: right;",class:"el-button el-button--danger is-circle el-icon-delete deletbtn"},number),
-              h('br'),
-              h('span', { class: "school" }, this.getMsg(number).grade),
-              h('span', { class: "class" }, " | " + this.getMsg(number).class),
-              h('span', { class: "number" }, " | " + this.getMsg(number).number),
+              // h('br'),
+              // h('span', { class: "school" }, this.getMsg(number).grade),
+              // h('span', { class: "class" }, " | " + this.getMsg(number).class),
+              // h('span', { class: "number" }, " | " + this.getMsg(number).number),
             ]),
-            h('div', { class: "text-item" }, this.getMsg(number).text),
-            h('div', { class: "text-item-other" }, this.getMsg(number).other)
+            h('div', { class: "text-item" }, this.getMsg(number).content),
+            // h('div', { class: "text-item-other" }, this.getMsg(number).other)
           ])
         )
        }
